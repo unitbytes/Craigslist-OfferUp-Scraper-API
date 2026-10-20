@@ -1,0 +1,40 @@
+[
+  {
+    "listingId": "7782194820",
+    "url": "https://www.craigslist.org/view/d/santa-monica-2015-nissan-nv2500-high/7782194820",
+    "title": "2015 Nissan NV2500 High Roof Cargo Van",
+    "price": 18500,
+    "currency": "USD",
+    "subarea": "wst",
+    "condition": "excellent",
+    "description": "Clean 2015 Nissan NV2500 High Roof van. V8 5.6L engine, automatic transmission, cold A/C. Call or text me at (310) 555-1234 or email seller@gmail.com for questions. Clean title in hand.",
+    "postDate": "2026-09-13T18:42:15-0700",
+    "city": "Santa Monica",
+    "state": "CA",
+    "zipCode": "90401",
+    "latitude": 34.0195,
+    "longitude": -118.4912,
+    "isDealer": false,
+    "contactObfuscated": false,
+    "phoneNumbers": [
+      "(310) 555-1234"
+    ],
+    "emails": [
+      "seller@gmail.com"
+    ],
+    "isVehicle": true,
+    "vehicleYear": 2015,
+    "vehicleMake": "Nissan",
+    "vehicleModel": "NV2500",
+    "vehicleMiles": 112400,
+    "vehicleVin": "1N6BF0KY5FN812345",
+    "vehicleTransmission": "automatic",
+    "vehicleFuelType": "gas",
+    "vehicleTitleStatus": "clean",
+    "thumbnailUrl": "https://images.craigslist.org/00B0B_1ZBm7qXYZ_600x450.jpg",
+    "imageUrls": [
+      "https://images.craigslist.org/00B0B_1ZBm7qXYZ_1200x900.jpg",
+      "https://images.craigslist.org/00H0H_2CDe8rUVW_1200x900.jpg"
+    ]
+  }
+]

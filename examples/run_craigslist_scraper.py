@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""
+Craigslist Scraper Worldwide: All Cities Subareas & Leads $0.50 — Official Python SDK Quickstart
+Actor: https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_py
+Docs & Schema: https://unitbytes.com/actors/craigslist-scraper/
+n8n Template: https://unitbytes.com/n8n/workflows/craigslist-scraper-n8n-workflow.json
+
+Usage:
+    pip install apify-client
+    export APIFY_API_TOKEN="your_apify_api_token"
+    python examples/run_craigslist_scraper.py
+"""
+
+import os
+from apify_client import ApifyClient
+
+client = ApifyClient(os.getenv("APIFY_API_TOKEN", "YOUR_APIFY_API_TOKEN"))
+
+run_input = {
+    "startUrls": [],
+    "searchUrl": "",
+    "searchQuery": "toyota",
+    "subarea": "",
+    "subdomains": [],
+    "postal": ""
+}
+
+run = client.actor("unitbytes/craigslist-scraper").call(run_input=run_input)
+
+for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+    print(item.get("title"), item.get("vehicleTitleStatus"), item.get("price"))
