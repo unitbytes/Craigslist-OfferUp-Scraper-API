@@ -19,10 +19,11 @@ client = ApifyClient(os.getenv("APIFY_API_TOKEN", "YOUR_APIFY_API_TOKEN"))
 run_input = {
     "startUrls": [],
     "searchUrl": "",
-    "searchQuery": "toyota",
+    "searchQuery": "",
     "subarea": "",
     "subdomains": [],
-    "postal": ""
+    "postal": "",
+    "customStoreName": ""
 }
 
 run = client.actor("unitbytes/craigslist-scraper").call(run_input=run_input)

@@ -9,7 +9,7 @@
 
 **High-speed Craigslist Worldwide ($0.50/1k) and OfferUp Marketplace Scraper API on Apify. Extract used cars, real estate housing leads, local resale bargains, and verified seller data.**
 
-[**🚀 Try Live on Apify**](https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds) • [**⚡ Official n8n Creator Hub**](https://n8n.io/creators/unitbytes/) • [**🔧 22 Free n8n Templates**](https://unitbytes.com/n8n/) • [**📖 Documentation & Schemas**](https://unitbytes.com/actors/) • [**📚 Engineering Playbooks**](https://unitbytes.com/blog/)
+[**🚀 Try Live on Apify**](https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds) • [**⚡ Official n8n Creator Hub**](https://n8n.io/creators/unitbytes/) • [**🔧 23 Free n8n Templates**](https://unitbytes.com/n8n/) • [**📖 Documentation & Schemas**](https://unitbytes.com/actors/) • [**📚 Engineering Playbooks**](https://unitbytes.com/blog/)
 
 </div>
 
@@ -42,7 +42,7 @@ This repository contains ready-to-run **Python SDK scripts**, **1-click n8n auto
 | **OfferUp Scraper: Marketplace Listings, Cars & Deals**<br><sub>[`unitbytes/offerup-scraper`](https://apify.com/unitbytes/offerup-scraper?fpr=939u3w&fp_sid=gh_classifieds) • [Full Schema](https://unitbytes.com/actors/offerup-scraper/) • [Engineering Playbook](https://unitbytes.com/blog/local-classifieds-arbitrage-facebook-marketplace-craigslist-offerup-guide/)</sub> | [`examples/run_offerup_scraper.py`](examples/run_offerup_scraper.py) | [`n8n/offerup-scraper-n8n-workflow.json`](n8n/offerup-scraper-n8n-workflow.json) | [`JSON`](samples/offerup-scraper-sample.json) · [`CSV`](samples/offerup-scraper-sample.csv) | [⚡ **Run on Apify**](https://apify.com/unitbytes/offerup-scraper?fpr=939u3w&fp_sid=gh_classifieds) |
 
 - 🤖 **Cursor, Windsurf & Claude Code MCP Ready:** Includes [`.cursor/mcp.json`](.cursor/mcp.json) pre-configured with `https://mcp.apify.com` so AI coding agents can invoke these UnitBytes scrapers natively.
-- 💡 **Using n8n?** Explore our official creator profile at **[n8n.io/creators/unitbytes](https://n8n.io/creators/unitbytes/)** or copy all 22 pre-built scraping workflows (`Ctrl+V`) at **[unitbytes.com/n8n](https://unitbytes.com/n8n/)**.
+- 💡 **Using n8n?** Explore our official creator profile at **[n8n.io/creators/unitbytes](https://n8n.io/creators/unitbytes/)** or copy all 23 pre-built scraping workflows (`Ctrl+V`) at **[unitbytes.com/n8n](https://unitbytes.com/n8n/)**.
 - 📚 **Engineering Playbook:** Read **[Automating Local Classifieds Arbitrage: Scraping Facebook Marketplace, Craigslist & OfferUp](https://unitbytes.com/blog/local-classifieds-arbitrage-facebook-marketplace-craigslist-offerup-guide/)** or browse all scraping & automation guides at **[unitbytes.com/blog](https://unitbytes.com/blog/)**.
 <!-- UNITBYTES_REPO_KIT_END -->
 
@@ -96,10 +96,11 @@ client = ApifyClient("YOUR_APIFY_TOKEN")
 run_input = {
     "startUrls": [],
     "searchUrl": "",
-    "searchQuery": "toyota",
+    "searchQuery": "",
     "subarea": "",
     "subdomains": [],
-    "postal": ""
+    "postal": "",
+    "customStoreName": ""
 }
 
 run = client.actor("unitbytes/craigslist-scraper").call(run_input=run_input)
@@ -167,7 +168,7 @@ Run on demand or schedule hourly cron runs to detect new bargain listings minute
 
 ### 🚀 OfferUp Scraper: Marketplace Listings, Cars & Deals (`unitbytes/offerup-scraper`)
 
-Extract local resale listings and shipping deals across the OfferUp marketplace. Scrape items by postal code, filter by seller TruYou verification badges, and capture vehicle listings with full specs.
+Fast OfferUp Scraper with no login required. Extract local marketplace listings, used cars & VINs, seller ratings, HD photos, and prices with Smart Scrape deduplication. From $0.80/1k.
 
 - **Pricing:** `$0.003 / item` (Pay-Per-Event — $0.003 listing discovery, $0.008 deep detail enrichment (volume tiers from $0.0006))
 - **Cloud Console:** [https://apify.com/unitbytes/offerup-scraper?fpr=939u3w&fp_sid=gh_classifieds](https://apify.com/unitbytes/offerup-scraper?fpr=939u3w&fp_sid=gh_classifieds)
@@ -289,6 +290,6 @@ Don't want to manage API tokens or scripts? **UnitBytes Data Delivery** provides
 
 - 🌐 **Request a Sample Dataset:** [https://unitbytes.com/#enterprise-intake](https://unitbytes.com/#enterprise-intake)
 - 📧 **Direct Engineering Contact:** [contact@unitbytes.com](mailto:contact@unitbytes.com)
-- ⚡ **Explore All 22 Scrapers:** [https://unitbytes.com/actors/](https://unitbytes.com/actors/)
+- ⚡ **Explore All 23 Scrapers:** [https://unitbytes.com/actors/](https://unitbytes.com/actors/)
 - 📚 **Engineering Playbooks & Guides:** [https://unitbytes.com/blog/](https://unitbytes.com/blog/)
 - 🔗 **Official n8n Creator Profile:** [https://n8n.io/creators/unitbytes/](https://n8n.io/creators/unitbytes/)
