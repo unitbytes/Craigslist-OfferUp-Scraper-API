@@ -109,6 +109,29 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     print(item.get("title"), item.get("vehicleTitleStatus"), item.get("price"))
 ```
 
+#### Live Dataset Output Previews
+
+**🚗 Craigslist Cars, Trucks & Vehicles Scraper (`unitbytes/craigslist-cars-vehicles-scraper`)**
+<p align="center">
+  <a href="https://apify.com/unitbytes/craigslist-cars-vehicles-scraper?fpr=939u3w&fp_sid=gh_classifieds" target="_blank">
+    <img src="https://raw.githubusercontent.com/unitbytes/Craigslist-OfferUp-Scraper-API/main/assets/craigslist-cars-vehicles-scraper-output-sample.png" alt="Craigslist Cars & Vehicles Scraper Dataset Output" width="100%" />
+  </a>
+</p>
+
+**🏠 Craigslist Real Estate, Property & Housing Scraper (`unitbytes/craigslist-real-estate-property-scraper`)**
+<p align="center">
+  <a href="https://apify.com/unitbytes/craigslist-real-estate-property-scraper?fpr=939u3w&fp_sid=gh_classifieds" target="_blank">
+    <img src="https://raw.githubusercontent.com/unitbytes/Craigslist-OfferUp-Scraper-API/main/assets/craigslist-real-estate-property-scraper-output-sample.png" alt="Craigslist Real Estate & Housing Scraper Dataset Output" width="100%" />
+  </a>
+</p>
+
+**💼 Craigslist Jobs, Gigs & Services Scraper (`unitbytes/craigslist-jobs-gigs-services-scraper`)**
+<p align="center">
+  <a href="https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=gh_classifieds" target="_blank">
+    <img src="https://raw.githubusercontent.com/unitbytes/Craigslist-OfferUp-Scraper-API/main/assets/craigslist-jobs-gigs-services-scraper-output-sample.png" alt="Craigslist Jobs, Gigs & Services Scraper Dataset Output" width="100%" />
+  </a>
+</p>
+
 #### Sample Output Schema (`samples/craigslist-scraper-sample.json`)
 ```json
 {
