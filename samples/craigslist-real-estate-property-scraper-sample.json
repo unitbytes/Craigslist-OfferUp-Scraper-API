@@ -1,0 +1,29 @@
+[
+  {
+    "listingId": "7900000003",
+    "url": "https://www.craigslist.org/view/d/white-plains-spacious-3br-apartment/7900000003",
+    "listingStatus": "active",
+    "title": "Spacious Top-Floor 3BR Apartment — Garage, Laundry, Pet Friendly",
+    "price": 3650.0,
+    "currency": "USD",
+    "subarea": "wch",
+    "description": "Bright 3-bedroom, 1.5-bath apartment with attached garage parking and laundry in building. Dogs and cats OK.",
+    "postDate": "2026-10-22T10:01:59-0400",
+    "city": "White Plains",
+    "state": "NY",
+    "zipCode": "10601",
+    "latitude": 41.034,
+    "longitude": -73.7629,
+    "isDealer": false,
+    "bedrooms": 3,
+    "bathrooms": 1.5,
+    "sqft": 1300,
+    "housingType": "apartment",
+    "laundry": "laundry in bldg",
+    "parking": "attached garage",
+    "thumbnailUrl": "https://images.craigslist.org/00B0B_1ZBm7qXYZ_600x450.jpg",
+    "imageUrls": [
+      "https://images.craigslist.org/00B0B_1ZBm7qXYZ_1200x900.jpg"
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "listingId": "7900000002",
+    "url": "https://www.craigslist.org/view/d/san-mateo-senior-site-reliability/c5edHqKDrLu5zQsnY8fPbo",
+    "listingStatus": "active",
+    "title": "Senior Site Reliability Engineer",
+    "currency": "USD",
+    "subarea": "pen",
+    "description": "We are seeking a Senior Site Reliability Engineer to scale our cloud infrastructure. Full-time role with competitive salary, equity, and comprehensive benefits.",
+    "postDate": "2026-10-21T13:54:31-0700",
+    "city": "San Mateo",
+    "state": "CA",
+    "latitude": 37.5538,
+    "longitude": -122.27,
+    "isDealer": false,
+    "compensation": "$130,000 to $200,000 + equity + benefits",
+    "employmentType": "full-time",
+    "jobTitle": "Software Engineering Manager",
+    "companyName": "Acme Tech Corp",
+    "isTelecommuting": true
+  }
+]

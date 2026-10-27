@@ -1,0 +1,639 @@
+{
+  "name": "Extract and score Craigslist Cars & Vehicles Scraper: By Owner, VIN & Miles data to Google Sheets, CSV, and Slack with Apify",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Craigslist Cars & Vehicles Scraper: By Owner, VIN & Miles — Automated Sheets, CSV & Slack Pipeline\n\nBuilt for market research, e-commerce, and growth teams. This workflow runs on a schedule to extract fresh data with the **[craigslist-cars-vehicles-scraper Apify Actor](https://apify.com/unitbytes/craigslist-cars-vehicles-scraper?fpr=939u3w&fp_sid=n8n_io)** ($0.0005 / item), skips previously seen records, scores each item, logs results to **Google Sheets** and **CSV**, and posts **Slack** alerts for top matches.\n\n### How it works\n1. **Every 6 Hours** triggers the run and loads search settings from **1. Configure Search & Rules**.\n2. **2. Run UnitBytes (craigslist-cars-vehicles-scraper)** executes the actor via Apify's synchronous endpoint.\n3. **3. Skip Seen Records** deduplicates items by `listingId` across runs.\n4. **4. Clean & Score Items** and **5. Map Export Fields** normalize fields (`listingId, url, listingStatus, title, price`) and compute a 0–100 `priorityScore`.\n5. **6a. Log to Google Sheets** and **6b. Export Backup CSV** store all rows, while **6c. Filter High-Priority Items** sends top matches to **7. Send Slack Alert**.\n\n### Setup\n1. Copy your API token from [craigslist-cars-vehicles-scraper on Apify Store](https://apify.com/unitbytes/craigslist-cars-vehicles-scraper?fpr=939u3w&fp_sid=n8n_io) into the **HTTP Header Auth** credential (`Authorization: Bearer <TOKEN>`) on node 2.\n2. Edit `actorInput`, `sheetTab`, and `maxTargetPrice` in **1. Configure Search & Rules**.\n3. Connect **Google Sheets** and **Slack** credentials (or test immediately via CSV export).\n\n### Customization\n- Tune `maxTargetPrice` or `priorityKeyword` in node 1 to adjust Slack alert sensitivity.\n- Full schema reference: [https://unitbytes.com/actors/craigslist-cars-vehicles-scraper/](https://unitbytes.com/actors/craigslist-cars-vehicles-scraper/)",
+        "height": 760,
+        "width": 560,
+        "color": 1
+      },
+      "id": "aa5cb7f2-0d81-521c-a780-45b1038309e8",
+      "name": "Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 1. Schedule & Search Settings\nTriggers on schedule and sets target search parameters, Google Sheets tab, and alert thresholds.",
+        "height": 380,
+        "width": 440,
+        "color": 7
+      },
+      "id": "5877d745-6a6e-585c-a2c4-c50c6345eb19",
+      "name": "Section 1 — Schedule & Settings",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2. Extract & Deduplicate\nRuns the UnitBytes Apify Actor and skips records already processed in previous runs.",
+        "height": 380,
+        "width": 440,
+        "color": 7
+      },
+      "id": "b47ae0cf-2ee4-5e67-bba0-7359df05880a",
+      "name": "Section 2 — Extract & Deduplicate",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 3. Clean, Score & Flatten\nNormalizes fields, parses numeric metrics, and calculates a 0–100 priority score.",
+        "height": 380,
+        "width": 440,
+        "color": 7
+      },
+      "id": "5de53f1c-6bb0-56f3-b50f-22c482427cd1",
+      "name": "Section 3 — Clean, Score & Flatten",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        920,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4. Sync to Sheets, CSV & Slack\nLogs all new records to Google Sheets and CSV, and routes high-priority matches to Slack.",
+        "height": 660,
+        "width": 540,
+        "color": 7
+      },
+      "id": "ce4d4c67-4f2b-526a-9cca-92dd91f82cba",
+      "name": "Section 4 — Sheets, CSV & Slack",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "e911cf2a-76b9-59a9-ab79-3615d7279611",
+      "name": "Every 6 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6ab8f6da-f2a3-57de-b4ef-e5d7f4643ed4",
+              "name": "actorInput",
+              "value": "{\"searchQuery\": \"toyota tacoma\", \"autoMakeModel\": \"toyota tacoma\", \"category\": \"cto\", \"subdomain\": \"losangeles\", \"scrapeDetails\": true, \"hasImage\": false}",
+              "type": "object"
+            },
+            {
+              "id": "d39668ef-6f65-5176-998d-0716131023ae",
+              "name": "sheetTab",
+              "value": "MarketplaceDeals",
+              "type": "string"
+            },
+            {
+              "id": "58c8466a-e42e-541d-8b94-57cb7c7625e9",
+              "name": "maxTargetPrice",
+              "value": 500,
+              "type": "number"
+            },
+            {
+              "id": "90f14dfb-d371-5dd8-868c-0232ef0d97da",
+              "name": "priorityKeyword",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aef9d74c-bd91-566a-89f6-d774e29d49d8",
+      "name": "1. Configure Search & Rules",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/unitbytes~craigslist-cars-vehicles-scraper/run-sync-get-dataset-items?format=json&clean=true",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.actorInput) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "58e4a8b3-3798-5837-9e9c-c5513711f4d1",
+          "name": "Apify API Token (Header Auth)"
+        }
+      },
+      "id": "b768ab32-823f-5ac7-9dc7-c03aa87a882b",
+      "name": "2. Run UnitBytes (craigslist-cars-vehicles-scraper)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.listingId || $json.id || $json.url }}",
+        "options": {}
+      },
+      "id": "106d4549-a631-54ef-9645-0d101e6a3ecf",
+      "name": "3. Skip Seen Records",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        720,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize fields, parse numeric metrics, and score items for Slack alerts\nconst config = $('1. Configure Search & Rules').first().json;\nconst threshold = Number(config.maxTargetPrice ?? 500);\nconst keywordFilter = String(config.priorityKeyword || '').trim().toLowerCase();\nconst primaryKeys = [\"listingId\", \"url\", \"listingStatus\", \"title\", \"price\", \"currency\"];\n\nreturn $input.all().map((item) => {\n  const raw = item.json || {};\n  const cleaned = { ...raw };\n\n  for (const k of primaryKeys) {\n    if (typeof cleaned[k] === 'string') {\n      cleaned[k] = cleaned[k].replace(/\\s+/g, ' ').trim();\n    }\n  }\n\n  const recordId = String(cleaned.listingId || cleaned.id || cleaned.url || '');\n  const titleText = String(cleaned.title || cleaned.query || cleaned.business_name || cleaned.place_name || cleaned.placeName || cleaned.shopName || cleaned.reviewer_name || cleaned.contributor_name || cleaned.content || cleaned.body || cleaned.keyword || cleaned.original_keyword || cleaned.name || cleaned.sellerNick || recordId).slice(0, 180);\n  const itemUrl = String(cleaned.url || cleaned.review_url || cleaned.review_permalink || cleaned.photoUrl || cleaned.noteUrl || cleaned.shopUrl || cleaned.place_url || cleaned.google_maps_url || cleaned.website || cleaned.productUrl || cleaned.taobaoUrl || cleaned.resolved_url || cleaned.input_url || cleaned.contributor_url || '');\n  const rawMetric = cleaned.price ?? cleaned.promotionPrice ?? cleaned.priceMin ?? cleaned.score ?? cleaned.likedCount ?? cleaned.likeCount ?? cleaned.value ?? cleaned.volume ?? cleaned.rating ?? cleaned.review_stars ?? cleaned.dsrDescription ?? cleaned.lead_score ?? 0;\n  const numericValue = Number(String(rawMetric).replace(/[^0-9.-]/g, '')) || 0;\n\n  let priorityScore = 50;\n  let isHighPriority = false;\n  const mode = 'price_deal';\n\n  if (mode === 'price_deal') {\n    if (numericValue > 0 && numericValue <= threshold) {\n      priorityScore = Math.min(100, Math.round(70 + ((threshold - numericValue) / Math.max(threshold, 1)) * 30));\n      isHighPriority = true;\n    }\n  } else if (mode === 'review_sentiment') {\n    const stars = Number(cleaned.review_stars ?? cleaned.stars ?? cleaned.rating ?? numericValue);\n    if (cleaned.is_removed === true || cleaned.is_edited === true || cleaned.status === 'REMOVED' || (stars > 0 && stars <= threshold)) {\n      priorityScore = 95;\n      isHighPriority = true;\n    }\n  } else if (mode === 'lead_score') {\n    const hasDirectContact = Boolean(cleaned.primary_email || cleaned.phone);\n    if (numericValue >= threshold || hasDirectContact) {\n      priorityScore = Math.min(100, Math.max(numericValue, hasDirectContact ? 85 : 70));\n      isHighPriority = true;\n    }\n  } else if (mode === 'status_audit') {\n    if (cleaned.is_sold === true || cleaned.is_removed === true || cleaned.status === 'SOLD' || (numericValue > 0 && numericValue <= threshold)) {\n      priorityScore = 90;\n      isHighPriority = true;\n    }\n  } else {\n    if (numericValue >= threshold) {\n      priorityScore = Math.min(100, Math.round(70 + Math.min(numericValue / Math.max(threshold, 1), 3) * 10));\n      isHighPriority = true;\n    }\n  }\n\n  if (keywordFilter && titleText.toLowerCase().includes(keywordFilter)) {\n    priorityScore = Math.min(100, priorityScore + 20);\n    isHighPriority = true;\n  }\n\n  return {\n    json: {\n      ...cleaned,\n      recordId,\n      titleText,\n      itemUrl,\n      numericValue,\n      priorityScore,\n      isHighPriority,\n      alertSummary: `${titleText} (Metric: ${numericValue} | Score: ${priorityScore}/100)`,\n      scrapedAt: new Date().toISOString(),\n    },\n  };\n});"
+      },
+      "id": "eea0543f-ec00-568e-8061-883c14c5c860",
+      "name": "4. Clean & Score Items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3f3f46ef-d195-541c-84e6-8af54d835b8a",
+              "name": "listingId",
+              "value": "={{ $json.listingId }}",
+              "type": "string"
+            },
+            {
+              "id": "5623132c-0deb-598c-9a76-53ab4d97350e",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "dafcf1de-77d4-5b58-9daf-803da585a1ba",
+              "name": "listingStatus",
+              "value": "={{ $json.listingStatus }}",
+              "type": "string"
+            },
+            {
+              "id": "75cdaab9-5584-5514-9355-d213616af11b",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "47ee2ede-f6b5-5ae0-ad01-03e836f11e12",
+              "name": "price",
+              "value": "={{ $json.price }}",
+              "type": "string"
+            },
+            {
+              "id": "b8d39f4b-2d08-58a1-8340-4d4795fa42f7",
+              "name": "currency",
+              "value": "={{ $json.currency }}",
+              "type": "string"
+            },
+            {
+              "id": "8553dfed-5e0e-5392-8580-a76ab0476450",
+              "name": "numericValue",
+              "value": "={{ $json.numericValue }}",
+              "type": "number"
+            },
+            {
+              "id": "1209a65a-3429-5249-8738-39e9d1bfb2f9",
+              "name": "priorityScore",
+              "value": "={{ $json.priorityScore }}",
+              "type": "number"
+            },
+            {
+              "id": "eeaab8d6-b25f-5e1c-9b41-9c72c1a1313b",
+              "name": "isHighPriority",
+              "value": "={{ $json.isHighPriority }}",
+              "type": "boolean"
+            },
+            {
+              "id": "e47cdb96-c2a1-5314-9521-13eb24b6a7a3",
+              "name": "alertSummary",
+              "value": "={{ $json.alertSummary }}",
+              "type": "string"
+            },
+            {
+              "id": "63b64321-bbfa-5a67-89d4-3dd809f3a5f4",
+              "name": "scrapedAt",
+              "value": "={{ $json.scrapedAt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "97ca58ab-c19d-5c11-88f3-360d70a935e6",
+      "name": "5. Map Export Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1180,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('1. Configure Search & Rules').first().json.sheetTab }}"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "listingId": "={{ $json.listingId }}",
+            "url": "={{ $json.url }}",
+            "listingStatus": "={{ $json.listingStatus }}",
+            "title": "={{ $json.title }}",
+            "price": "={{ $json.price }}",
+            "currency": "={{ $json.currency }}",
+            "numericValue": "={{ $json.numericValue }}",
+            "priorityScore": "={{ $json.priorityScore }}",
+            "isHighPriority": "={{ $json.isHighPriority }}",
+            "alertSummary": "={{ $json.alertSummary }}",
+            "scrapedAt": "={{ $json.scrapedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "listingId",
+              "displayName": "listingId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "listingStatus",
+              "displayName": "listingStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "currency",
+              "displayName": "currency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "numericValue",
+              "displayName": "numericValue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "priorityScore",
+              "displayName": "priorityScore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "isHighPriority",
+              "displayName": "isHighPriority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alertSummary",
+              "displayName": "alertSummary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "scrapedAt",
+              "displayName": "scrapedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {
+          "cellFormat": "RAW"
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "392f8733-93e7-5818-aa0c-b1fd35cc5d9c",
+          "name": "Google Sheets account"
+        }
+      },
+      "id": "0f962b46-953f-5e85-bd86-d32f64869e6a",
+      "name": "6a. Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1440,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {
+          "fileName": "craigslist-cars-vehicles-scraper-dataset-export.csv"
+        }
+      },
+      "id": "6eeab865-c04c-5174-a338-9018f205753a",
+      "name": "6b. Export Backup CSV",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a770bedd-9bf4-5564-a659-171cf8d97b43",
+              "leftValue": "={{ $json.isHighPriority }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "54f6f801-13ba-5236-a31b-d23f74dd9e8b",
+      "name": "6c. Filter High-Priority Items",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "messageType": "text",
+        "text": "=:bell: *New High-Priority Match (Craigslist Cars & Vehicles Scraper: By Owner, VIN & Miles)*\n*<{{ $json.itemUrl }}|{{ $json.titleText }}>*\n• *Priority Score:* {{ $json.priorityScore }}/100 ({{ $json.numericValue }})\n• *Record ID:* `{{ $json.recordId }}`\n• *Scraped At:* {{ $json.scrapedAt }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "unfurl_links": false
+        }
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "6c67b0db-bde1-5e74-9d67-b43b6bfdb500",
+          "name": "Slack account"
+        }
+      },
+      "id": "efbc3d19-584c-55fc-a743-65001d461a23",
+      "name": "7. Send Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1680,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Every 6 Hours": {
+      "main": [
+        [
+          {
+            "node": "1. Configure Search & Rules",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Configure Search & Rules": {
+      "main": [
+        [
+          {
+            "node": "2. Run UnitBytes (craigslist-cars-vehicles-scraper)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Run UnitBytes (craigslist-cars-vehicles-scraper)": {
+      "main": [
+        [
+          {
+            "node": "3. Skip Seen Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Skip Seen Records": {
+      "main": [
+        [
+          {
+            "node": "4. Clean & Score Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Clean & Score Items": {
+      "main": [
+        [
+          {
+            "node": "5. Map Export Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Map Export Fields": {
+      "main": [
+        [
+          {
+            "node": "6a. Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "6b. Export Backup CSV",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "6c. Filter High-Priority Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6c. Filter High-Priority Items": {
+      "main": [
+        [
+          {
+            "node": "7. Send Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "030f9420-0ca8-5240-8fe8-208e287a8b19"
+  },
+  "tags": [
+    {
+      "name": "Web Scraping"
+    },
+    {
+      "name": "Apify"
+    },
+    {
+      "name": "UnitBytes"
+    },
+    {
+      "name": "Classifieds & Local Data"
+    }
+  ]
+}

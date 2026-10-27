@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "unitbytes-apify": {
+      "type": "http",
+      "url": "https://mcp.apify.com/?tools=actors,docs,unitbytes/craigslist-scraper,unitbytes/craigslist-cars-vehicles-scraper,unitbytes/craigslist-real-estate-property-scraper,unitbytes/craigslist-jobs-gigs-services-scraper,unitbytes/offerup-scraper,unitbytes/offerup-vehicles-cars-scraper,unitbytes/offerup-seller-inventory-scraper,unitbytes/offerup-deal-monitor-scraper"
+    }
+  }
+}

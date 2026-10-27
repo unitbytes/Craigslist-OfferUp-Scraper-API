@@ -1,0 +1,31 @@
+[
+  {
+    "listingId": "d9f7c56b-a931-35e1-a286-12f83fa44589",
+    "url": "https://offerup.com/item/detail/d9f7c56b-a931-35e1-a286-12f83fa44589",
+    "title": "2019 BMW X4",
+    "price": 23995.0,
+    "status": "LISTED",
+    "locationName": "Houston, TX",
+    "latitude": 29.7301361,
+    "longitude": -95.643225,
+    "isVehicle": true,
+    "vehicleMiles": 103937,
+    "sellerId": "100098765",
+    "sellerProfileUrl": "https://offerup.com/p/100098765",
+    "sellerName": "Metro Auto Group",
+    "sellerPhone": "5550192834",
+    "sellerWebsite": "https://example-motors.com",
+    "sellerAddress": "100 Market St, Houston, TX 77002, USA",
+    "sellerBio": "Welcome to Metro Auto Group! Our virtual showroom is stocked with a wide selection of inspected pre-owned vehicles.",
+    "sellerLastActive": "Active in the last day",
+    "isDealer": true,
+    "isAutosDealer": true,
+    "isSubPrimeDealer": false,
+    "sellerBadges": [
+      "Confirmed phone",
+      "Confirmed email"
+    ],
+    "sellerOpeningHours": "Monday: 9:00 AM–7:00 PM | Tuesday: 9:00 AM–7:00 PM | Wednesday: 9:00 AM–7:00 PM | Thursday: 9:00 AM–7:00 PM | Friday: 9:00 AM–7:00 PM | Saturday: 9:00 AM–7:00 PM | Sunday: Closed",
+    "sellerGoogleReviewRating": 4.0
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "listingId": "7900000001",
+    "url": "https://www.craigslist.org/view/d/norwalk-2013-toyota-tacoma-trd-off-road/7900000001",
+    "listingStatus": "active",
+    "title": "2013 Toyota Tacoma TRD Off Road 4x4",
+    "price": 14500.0,
+    "currency": "USD",
+    "subarea": "sfv",
+    "condition": "excellent",
+    "description": "Clean 2013 Toyota Tacoma TRD Off-Road. 104,500 miles, automatic transmission, clean title in hand.",
+    "postDate": "2026-10-22T07:07:19-0700",
+    "city": "Norwalk",
+    "state": "CA",
+    "zipCode": "90652",
+    "latitude": 33.9022,
+    "longitude": -118.0817,
+    "isDealer": false,
+    "isVehicle": true,
+    "vehicleYear": 2013,
+    "vehicleMake": "toyota tacoma trd off-road",
+    "vehicleMiles": 104500,
+    "vehicleVin": "5TFUX4EN4DX012345",
+    "vehicleTransmission": "automatic",
+    "vehicleFuelType": "gas",
+    "vehicleTitleStatus": "clean",
+    "thumbnailUrl": "https://images.craigslist.org/00B0B_1ZBm7qXYZ_600x450.jpg",
+    "imageUrls": [
+      "https://images.craigslist.org/00B0B_1ZBm7qXYZ_1200x900.jpg"
+    ]
+  }
+]
