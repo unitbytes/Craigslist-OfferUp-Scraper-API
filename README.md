@@ -10,7 +10,7 @@
 
 **High-speed Craigslist Worldwide (`$0.50/1k`) and OfferUp Marketplace (`$0.80/1k`) Scraper API suite on Apify. Extract used cars & VINs, real estate housing leads, jobs & gigs, seller inventories, auto dealer phones, and local resale bargains.**
 
-[**🚀 Try Live on Apify**](https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds) • [**📓 Open in Google Colab**](https://colab.research.google.com/github/unitbytes/Craigslist-OfferUp-Scraper-API/blob/main/notebooks/quickstart.ipynb) • [**⚡ Official n8n Creator Hub**](https://n8n.io/creators/unitbytes/) • [**🔧 39 Free n8n Templates**](https://unitbytes.com/n8n/) • [**📖 Documentation & Schemas**](https://unitbytes.com/actors/) • [**📚 Engineering Playbooks**](https://unitbytes.com/blog/)
+[**🚀 Try Live on Apify**](https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds) • [**📓 Open in Google Colab**](https://colab.research.google.com/github/unitbytes/Craigslist-OfferUp-Scraper-API/blob/main/notebooks/quickstart.ipynb) • [**⚡ Official n8n Creator Hub**](https://n8n.io/creators/unitbytes/) • [**🔧 41 Free n8n Templates**](https://unitbytes.com/n8n/) • [**📖 Documentation & Schemas**](https://unitbytes.com/actors/) • [**📚 Engineering Playbooks**](https://unitbytes.com/blog/)
 
 </div>
 
@@ -50,7 +50,7 @@ This repository contains ready-to-run **Python SDK scripts**, an **interactive 1
 
 - 📓 **1-Click Interactive Google Colab Notebook:** Open [`notebooks/quickstart.ipynb`](notebooks/quickstart.ipynb) directly in your browser via [**Google Colab ↗**](https://colab.research.google.com/github/unitbytes/Craigslist-OfferUp-Scraper-API/blob/main/notebooks/quickstart.ipynb) to inspect sample DataFrames and test live API queries with zero local setup.
 - 🤖 **Cursor, Windsurf & Claude Code MCP Ready:** Includes [`.cursor/mcp.json`](.cursor/mcp.json) pre-configured with `https://mcp.apify.com` so AI coding agents can invoke these UnitBytes scrapers natively.
-- 💡 **Using n8n?** Explore our official creator profile at **[n8n.io/creators/unitbytes](https://n8n.io/creators/unitbytes/)** or copy all 39 pre-built 9-node scraping workflows (`Ctrl+V`) at **[unitbytes.com/n8n](https://unitbytes.com/n8n/)**.
+- 💡 **Using n8n?** Explore our official creator profile at **[n8n.io/creators/unitbytes](https://n8n.io/creators/unitbytes/)** or copy all 41 pre-built 9-node scraping workflows (`Ctrl+V`) at **[unitbytes.com/n8n](https://unitbytes.com/n8n/)**.
 - 📚 **Engineering Playbooks:** [**Classifieds Arbitrage Playbook**](https://unitbytes.com/blog/local-classifieds-arbitrage-facebook-marketplace-craigslist-offerup-guide/) • [**Used Car VIN & Auto Leads Playbook**](https://unitbytes.com/blog/used-car-vin-real-estate-fsbo-scraping-facebook-marketplace-craigslist-offerup-guide/) — or browse all guides at **[unitbytes.com/blog](https://unitbytes.com/blog/)**.
 <!-- UNITBYTES_REPO_KIT_END -->
 
@@ -87,7 +87,7 @@ Launch pre-configured extraction templates directly in the Apify Cloud Console w
 
 ### 🚀 Craigslist Search Scraper: Cars, Housing, Jobs & For Sale (`unitbytes/craigslist-scraper`)
 
-Scrape Craigslist search results across 700+ cities: cars, housing, jobs, electronics, furniture & free stuff. Multi-city clusters, real-time new listing alerts, HD photos & optional contacts. MCP & AI Agent ready.
+Scrape Craigslist search results across 700+ cities: cars, housing, jobs, electronics, furniture & free stuff. Multi-city clusters, real-time new listing alerts, HD photos & optional contacts.
 
 - **Pricing:** `$0.0005 / item` (Pay-Per-Event — `$0.0005` search result, `$0.0015` detailed listing (volume tiers from `$0.00035`))
 - **Cloud Console:** [https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds](https://apify.com/unitbytes/craigslist-scraper?fpr=939u3w&fp_sid=gh_classifieds)
@@ -223,7 +223,7 @@ Yes. Copy any Craigslist search URL from your browser and paste it into searchUr
 
 ### 🚀 Craigslist Cars & Vehicles Scraper: By Owner, VIN & Miles (`unitbytes/craigslist-cars-vehicles-scraper`)
 
-Scrape Craigslist cars, trucks, motorcycles, RVs, boats, heavy equipment & auto parts by owner or dealer across 700+ cities. Filter by make/model, year, odometer mileage, clean title & VIN. MCP & AI Agent ready.
+Scrape Craigslist cars, trucks, motorcycles, RVs, boats, heavy equipment & auto parts by owner or dealer across 700+ cities. Filter by make/model, year, odometer mileage, clean title & VIN.
 
 - **Pricing:** `$0.0005 / item` (Pay-Per-Event — `$0.0005` search result, `$0.0015` detailed listing (volume tiers from `$0.00035`))
 - **Cloud Console:** [https://apify.com/unitbytes/craigslist-cars-vehicles-scraper?fpr=939u3w&fp_sid=gh_classifieds](https://apify.com/unitbytes/craigslist-cars-vehicles-scraper?fpr=939u3w&fp_sid=gh_classifieds)
@@ -336,7 +336,7 @@ Yes. Paste any Craigslist cars/trucks search URL into searchUrl or startUrls and
 
 ### 🚀 Craigslist Real Estate, Property & Housing Scraper (FSBO) (`unitbytes/craigslist-real-estate-property-scraper`)
 
-Scrape Craigslist real estate for sale (FSBO), rental properties, apartments, houses, rooms, sublets & commercial property across 700+ cities. Filter by beds, baths, sqft, pets & parking. MCP & AI Agent ready.
+Scrape Craigslist real estate for sale (FSBO), rental properties, apartments, houses, rooms, sublets & commercial property across 700+ cities. Filter by beds, baths, sqft, pets & parking.
 
 - **Pricing:** `$0.0005 / item` (Pay-Per-Event — `$0.0005` search result, `$0.0015` detailed listing (volume tiers from `$0.00035`))
 - **Cloud Console:** [https://apify.com/unitbytes/craigslist-real-estate-property-scraper?fpr=939u3w&fp_sid=gh_classifieds](https://apify.com/unitbytes/craigslist-real-estate-property-scraper?fpr=939u3w&fp_sid=gh_classifieds)
@@ -446,7 +446,7 @@ Yes. Copy any filtered Craigslist housing or real estate URL from your browser i
 
 ### 🚀 Craigslist Jobs, Gigs & Services Scraper: Pay & Remote (`unitbytes/craigslist-jobs-gigs-services-scraper`)
 
-Scrape Craigslist jobs, local gigs, resumes & services across 700+ cities and 35+ categories. Filter by full-time, part-time, contract, remote/telecommute & paid gigs with compensation details. MCP & AI Agent ready.
+Scrape Craigslist jobs, local gigs, resumes & services across 700+ cities and 35+ categories. Filter by full-time, part-time, contract, remote/telecommute & paid gigs with compensation details.
 
 - **Pricing:** `$0.0005 / item` (Pay-Per-Event — `$0.0005` search result, `$0.0015` detailed listing (volume tiers from `$0.00035`))
 - **Cloud Console:** [https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=gh_classifieds](https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=gh_classifieds)
@@ -831,7 +831,7 @@ Scrape OfferUp seller storefronts (/p/<userId>), complete dealer inventories, ve
 | `zipCode` *(Required)* | `string` | `77082` | 5-digit US ZIP code (e.g. 77082 for Houston, 90001 for Los Angeles). |
 | `radius` | `integer` | `50` | Search distance radius around the ZIP code (5 to 500 miles). |
 | `maxItems` | `integer` | `20` | Maximum number of storefront listings to extract. |
-| `scrapeDetails` | `boolean` | `False` | Note: When scraping Seller IDs (/p/<userId>), full seller contact info (phone, website, address, hours, reviews) is ALREADY extracted in Fast Mode (`$0.80/1k`)! Enable this only if you also need per-item VIN/descriptions or when discovering sellers via keyword search. |
+| `scrapeDetails` | `boolean` | `True` | When enabled, enriches each inventory listing with per-item VIN, full specifications, and complete descriptions (`$2.50/1k`). Set to false for fast summary-only storefront discovery (`$0.80/1k`). |
 | `proxyConfiguration` | `object` | `{"useApifyProxy": true, "apifyProxyGroups": ["RE` | Apify Residential US proxy configuration. |
 
 #### Python SDK Quickstart (`examples/run_offerup_seller_inventory_scraper.py`)
@@ -847,10 +847,10 @@ client = ApifyClient(APIFY_TOKEN)
 run_input = {
     "sellerIds": ["100098765"],
     "zipCode": "77082",
+    "scrapeDetails": True,
     "categoryId": "5.1",
     "radius": 50,
-    "maxItems": 20,
-    "scrapeDetails": False
+    "maxItems": 20
 }
 
 run = client.actor("unitbytes/offerup-seller-inventory-scraper").call(run_input=run_input)
@@ -1035,6 +1035,6 @@ Don't want to manage API tokens or scripts? **UnitBytes Data Delivery** provides
 
 - 🌐 **Request a Sample Dataset:** [https://unitbytes.com/#enterprise-intake](https://unitbytes.com/#enterprise-intake)
 - 📧 **Direct Engineering Contact:** [contact@unitbytes.com](mailto:contact@unitbytes.com)
-- ⚡ **Explore All 39 Scrapers:** [https://unitbytes.com/actors/](https://unitbytes.com/actors/)
+- ⚡ **Explore All 41 Scrapers:** [https://unitbytes.com/actors/](https://unitbytes.com/actors/)
 - 📚 **Engineering Playbooks & Guides:** [https://unitbytes.com/blog/](https://unitbytes.com/blog/)
 - 🔗 **Official n8n Creator Profile:** [https://n8n.io/creators/unitbytes/](https://n8n.io/creators/unitbytes/)

@@ -23,10 +23,10 @@ client = ApifyClient(APIFY_TOKEN)
 run_input = {
     "sellerIds": ["100098765"],
     "zipCode": "77082",
+    "scrapeDetails": True,
     "categoryId": "5.1",
     "radius": 50,
-    "maxItems": 20,
-    "scrapeDetails": False
+    "maxItems": 20
 }
 
 run = client.actor("unitbytes/offerup-seller-inventory-scraper").call(run_input=run_input)
