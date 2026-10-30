@@ -3,82 +3,113 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Craigslist Jobs, Gigs & Services Scraper: Pay & Remote — AI Co-Pilot & Multi-App Pipeline\n\nExtracts fresh data on a schedule with the **[craigslist-jobs-gigs-services-scraper Apify Actor](https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=n8n_io)** ($0.0005 / item), skips seen records, logs all rows to **Google Sheets** and **CSV**, and enriches top matches with **OpenAI (`gpt-4o-mini`)** for **Slack** and **Gmail**.\n\n### How it works\n1. **Every 6 Hours** loads rules from **1. Configure Search & Rules**.\n2. **2. Run UnitBytes (craigslist-jobs-gigs-services-scraper)** fetches data and **3. Skip Seen Records** deduplicates by `listingId`.\n3. **4. Clean & Score Items** and **5. Map Export Fields** normalize `listingId, url, listingStatus, title` and compute `priorityScore`.\n4. **6a. Log to Google Sheets** and **6b. Export Backup CSV** save all rows, while **6c. Filter High-Priority Items** routes top matches to **7. AI B2B SDR Cold Email Personalizer**.\n5. **8. Merge AI SDR Outreach Fields** merges AI fields and triggers **9a. Alert Sales Channel in Slack** and **9b. Create Personalized Gmail Draft**.\n\n### Setup\n1. Add your token from [craigslist-jobs-gigs-services-scraper on Apify Store](https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=n8n_io) to the **HTTP Header Auth** credential on node 2 (`Name`: `Authorization`, `Value`: `Bearer <YOUR_APIFY_TOKEN>`).\n2. Edit `actorInput`, `sheetTab`, and `minLeadScore` in node 1.\n3. Connect **OpenAI**, **Google Sheets**, **Slack**, and **Gmail** credentials.\n\n### Customization\n- Adjust `minLeadScore` in node 1 or the prompt in node 7.\n- Docs: [https://unitbytes.com/actors/craigslist-jobs-gigs-services-scraper/](https://unitbytes.com/actors/craigslist-jobs-gigs-services-scraper/)",
-        "height": 780,
-        "width": 560,
-        "color": 1
+        "content": "## Enrich Craigslist local job and gig leads with OpenAI to Gmail, Google Sheets, and Slack\n\n### How it works\n\nThis workflow runs every six hours to extract fresh records through the **[craigslist-jobs-gigs-services-scraper](https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=n8n_io)** UnitBytes Apify actor ($0.0005 / item), remove previously seen items by `listingId`, and normalize and score the dataset (`listingId, url, listingStatus, title`). It maps the cleaned fields for export, logs all rows to **Google Sheets**, creates a backup **CSV** file, and sends only high-priority records into **OpenAI (`gpt-4o-mini`)** for structured analysis and action drafting. The enriched fields are then merged and delivered to **Slack** and **Gmail**.\n\n### Setup steps\n\n- Configure the schedule interval in **When Every 6 Hours** if six hours is not ideal for your cadence.\n- Add your Apify API token from [craigslist-jobs-gigs-services-scraper on Apify Store](https://apify.com/unitbytes/craigslist-jobs-gigs-services-scraper?fpr=939u3w&fp_sid=n8n_io) (`Authorization: Bearer <YOUR_APIFY_TOKEN>`) in **Post to Craigslist Jobs, Gigs & Services Scraper: Pay & Remote API** and confirm `actorInput` in **Set Search Parameters**.\n- Connect **Google Sheets** credentials in **Append Data to Sheets** and select your destination spreadsheet.\n- Configure **OpenAI** credentials in **AI B2B SDR Cold Email Personalizer** and review the `gpt-4o-mini` system prompt.\n- Connect **Slack** and **Gmail** credentials on the final delivery nodes.\n- Review `minLeadScore` and `priorityKeyword` in **Set Search Parameters** before activating.\n\n### Customization\n\nAdjust `actorInput`, `minLeadScore`, `priorityKeyword`, the OpenAI prompt, Slack message formatting, and Gmail template fields to match your workflow. Full schema and input docs: [https://unitbytes.com/actors/craigslist-jobs-gigs-services-scraper/](https://unitbytes.com/actors/craigslist-jobs-gigs-services-scraper/)",
+        "width": 480,
+        "height": 896
       },
       "id": "daa805cc-bdca-57da-9044-11704721c98d",
-      "name": "Overview",
+      "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -640,
-        -80
+        -560,
+        -288
       ]
     },
     {
       "parameters": {
-        "content": "## 1. Schedule & Search Settings\nTriggers on schedule and sets target search parameters, Google Sheets tab, and alert thresholds.",
-        "height": 380,
-        "width": 440,
+        "content": "## Schedule search rules\n\nStarts the workflow on a six-hour schedule and defines the search input, destination sheet tab, scoring threshold, and priority keyword rules used downstream.",
+        "width": 416,
+        "height": 336,
         "color": 7
       },
       "id": "b6090994-9790-570f-9ccf-e820373d1918",
-      "name": "Section 1 — Schedule & Settings",
+      "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         0,
-        60
+        48
       ]
     },
     {
       "parameters": {
-        "content": "## 2. Extract & Deduplicate\nRuns the UnitBytes Apify Actor and skips records already processed in previous runs.",
-        "height": 380,
-        "width": 440,
+        "content": "## Scrape and deduplicate\n\nRuns the UnitBytes Apify actor through a synchronous HTTP request and removes records that have already been processed in previous executions.",
+        "width": 416,
+        "height": 320,
         "color": 7
       },
       "id": "20f26486-19b4-5804-9c31-ca71ebe6b4a8",
-      "name": "Section 2 — Extract & Deduplicate",
+      "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        60
+        448,
+        64
       ]
     },
     {
       "parameters": {
-        "content": "## 3. Clean, Score & Flatten\nNormalizes fields, parses numeric metrics, and calculates a 0–100 priority score.",
-        "height": 380,
-        "width": 440,
+        "content": "## Clean and map items\n\nNormalizes raw scraper fields, parses numeric metrics, calculates 0–100 priority scores, and maps the cleaned data into export-ready fields.",
+        "width": 416,
+        "height": 336,
         "color": 7
       },
       "id": "75f58f5c-ef9f-5f99-a4a6-eb696d54c373",
-      "name": "Section 3 — Clean, Score & Flatten",
+      "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        920,
-        60
+        912,
+        48
       ]
     },
     {
       "parameters": {
-        "content": "## 4. Sheets, CSV & AI Co-Pilot\nLogs all rows to Sheets and CSV, enriches high-priority items with OpenAI, and alerts teams.",
-        "height": 740,
-        "width": 980,
+        "content": "## Export and prioritize\n\nBranches the mapped data into persistent outputs by logging to Google Sheets and creating a backup CSV, while filtering the stream down to high-priority items for AI enrichment.",
+        "width": 240,
+        "height": 816,
         "color": 7
       },
       "id": "9484cb23-4f09-5d34-8c59-229d6f219f5a",
-      "name": "Section 4 — Sheets, CSV & AI Co-Pilot",
+      "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1380,
-        -80
+        1392,
+        -288
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Enrich with OpenAI\n\nUses OpenAI (`gpt-4o-mini`) to analyze high-priority records and merges the AI-generated headline, verdict, analysis, and draft with the original item fields.",
+        "width": 416,
+        "height": 336,
+        "color": 7
+      },
+      "id": "4c4296c0-28c4-5db5-9d3b-06c865827991",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Notify and route actions\n\nDelivers the enriched high-priority insights by posting formatted alerts to Slack and creating ready-to-send outreach drafts or instant alerts.",
+        "width": 240,
+        "height": 640,
+        "color": 7
+      },
+      "id": "b8901d33-b799-5e12-ae80-8de27ed600d9",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        0
       ]
     },
     {
@@ -93,7 +124,7 @@
         }
       },
       "id": "5e74b970-1cc9-58d4-9dd5-3cd696716d53",
-      "name": "Every 6 Hours",
+      "name": "When Every 6 Hours",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
@@ -134,7 +165,7 @@
         "options": {}
       },
       "id": "98fd0cc6-e15e-5bec-9de2-6ab4372ed8df",
-      "name": "1. Configure Search & Rules",
+      "name": "Set Search Parameters",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
@@ -171,7 +202,7 @@
         }
       },
       "id": "ccc99b49-bbf8-58d7-8d84-4268f5c5a788",
-      "name": "2. Run UnitBytes (craigslist-jobs-gigs-services-scraper)",
+      "name": "Post to Craigslist Jobs, Gigs & Services Scraper: Pay & Remote API",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -186,7 +217,7 @@
         "options": {}
       },
       "id": "ff7e74cb-df47-539a-a1d4-d6ff4599424e",
-      "name": "3. Skip Seen Records",
+      "name": "Deduplicate All Fields",
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 2,
       "position": [
@@ -196,10 +227,10 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normalize fields, parse numeric metrics, and score items for AI enrichment\nconst config = $('1. Configure Search & Rules').first().json;\nconst threshold = Number(config.minLeadScore !== undefined ? config.minLeadScore : 1);\nconst keywordFilter = String(config.priorityKeyword || '').trim().toLowerCase();\nconst primaryKeys = [\"listingId\", \"url\", \"listingStatus\", \"title\", \"currency\", \"subarea\"];\n\nreturn $input.all().map((item) => {\n  const raw = item.json || {};\n  const cleaned = { ...raw };\n\n  for (const k of primaryKeys) {\n    if (typeof cleaned[k] === 'string') {\n      cleaned[k] = cleaned[k].replace(/\\s+/g, ' ').trim();\n    }\n  }\n\n  const recordId = String(cleaned.listingId || cleaned.id || cleaned.url || '');\n  const titleText = String(cleaned.title || recordId).slice(0, 180);\n  const itemUrl = String(cleaned.url || '');\n  const rawMetric = cleaned.score || cleaned.likedCount || cleaned.likeCount || cleaned.followerCount || cleaned.viewersTotalUv || cleaned.dsrDescription || 0;\n  const numericValue = Number(String(rawMetric).replace(/[^0-9.-]/g, '')) || 0;\n\n  let priorityScore = 50;\n  let isHighPriority = false;\n\n  if (numericValue >= threshold) {\n    priorityScore = Math.min(100, Math.round(70 + Math.min(numericValue / Math.max(threshold, 1), 3) * 10));\n    isHighPriority = true;\n  }\n\n  if (keywordFilter && titleText.toLowerCase().includes(keywordFilter)) {\n    priorityScore = Math.min(100, priorityScore + 20);\n    isHighPriority = true;\n  }\n\n  return {\n    json: {\n      ...cleaned,\n      recordId,\n      titleText,\n      itemUrl,\n      numericValue,\n      priorityScore,\n      isHighPriority,\n      alertSummary: titleText + ' (Metric: ' + numericValue + ' | Score: ' + priorityScore + '/100)',\n      scrapedAt: new Date().toISOString(),\n    },\n  };\n});"
+        "jsCode": "// Normalize fields, parse numeric metrics, and score items for AI enrichment\nconst config = $('Set Search Parameters').first().json;\nconst threshold = Number(config.minLeadScore !== undefined ? config.minLeadScore : 1);\nconst keywordFilter = String(config.priorityKeyword || '').trim().toLowerCase();\nconst primaryKeys = [\"listingId\", \"url\", \"listingStatus\", \"title\", \"currency\", \"subarea\"];\n\nreturn $input.all().map((item) => {\n  const raw = item.json || {};\n  const cleaned = { ...raw };\n\n  for (const k of primaryKeys) {\n    if (typeof cleaned[k] === 'string') {\n      cleaned[k] = cleaned[k].replace(/\\s+/g, ' ').trim();\n    }\n  }\n\n  const recordId = String(cleaned.listingId || cleaned.id || cleaned.url || '');\n  const titleText = String(cleaned.title || recordId).slice(0, 180);\n  const itemUrl = String(cleaned.url || '');\n  const rawMetric = cleaned.score || cleaned.likedCount || cleaned.likeCount || cleaned.followerCount || cleaned.viewersTotalUv || cleaned.dsrDescription || (String(cleaned.compensation || '').match(/\\d[\\d,]*/) || [1])[0] || 0;\n  const numericValue = Number(String(rawMetric).replace(/[^0-9.-]/g, '')) || 0;\n\n  let priorityScore = 50;\n  let isHighPriority = false;\n\n  if (numericValue >= threshold) {\n    priorityScore = Math.min(100, Math.round(70 + Math.min(numericValue / Math.max(threshold, 1), 3) * 10));\n    isHighPriority = true;\n  }\n\n  if (keywordFilter && titleText.toLowerCase().includes(keywordFilter)) {\n    priorityScore = Math.min(100, priorityScore + 20);\n    isHighPriority = true;\n  }\n\n  return {\n    json: {\n      ...cleaned,\n      recordId,\n      titleText,\n      itemUrl,\n      numericValue,\n      priorityScore,\n      isHighPriority,\n      alertSummary: titleText + ' (Metric: ' + numericValue + ' | Score: ' + priorityScore + '/100)',\n      scrapedAt: new Date().toISOString(),\n    },\n  };\n});"
       },
       "id": "6361ae8f-6016-5a02-9e80-56c46ac3a104",
-      "name": "4. Clean & Score Items",
+      "name": "Normalize and Score Items",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
@@ -283,7 +314,7 @@
         "options": {}
       },
       "id": "092302d5-6ff5-5b5d-97c5-d02d62ed7b22",
-      "name": "5. Map Export Fields",
+      "name": "Prepare Export Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
@@ -303,7 +334,7 @@
         "sheetName": {
           "__rl": true,
           "mode": "name",
-          "value": "={{ $('1. Configure Search & Rules').first().json.sheetTab }}"
+          "value": "={{ $('Set Search Parameters').first().json.sheetTab }}"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -434,7 +465,7 @@
         }
       },
       "id": "d9773ac8-7a1c-5ac2-8c94-9afb871c0060",
-      "name": "6a. Log to Google Sheets",
+      "name": "Append Data to Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
@@ -450,7 +481,7 @@
         }
       },
       "id": "ebc23831-312f-5089-8c48-906792f3517f",
-      "name": "6b. Export Backup CSV",
+      "name": "Export to CSV File",
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
@@ -484,7 +515,7 @@
         "options": {}
       },
       "id": "84b31446-3135-5591-b2fd-137e3421216f",
-      "name": "6c. Filter High-Priority Items",
+      "name": "Filter High-Priority Leads",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
@@ -505,11 +536,11 @@
         "messages": {
           "values": [
             {
-              "content": "You are a senior B2B Sales Development Representative (SDR). Analyze the scraped local business lead JSON and return a JSON object with exactly 4 keys: \"aiHeadline\" (company name + category + ICP fit tier), \"aiVerdict\" (one of: TIER_1_HOT, TIER_2_WARM, TIER_3_NURTURE), \"aiAnalysis\" (1-sentence digital presence or marketing gap hypothesis based on rating, review count, and website), and \"aiDraftBody\" (a personalized 4-sentence cold outreach email with a custom icebreaker and low-friction call to action).",
+              "content": "You are a senior B2B Sales Development Representative (SDR). Analyze the scraped local business lead JSON (including website CMS/tech stack, missing Meta Pixel / Google Ads flags, and recent customer review hook) and return a JSON object with exactly 4 keys: \"aiHeadline\" (company name + category + ICP fit tier), \"aiVerdict\" (one of: TIER_1_HOT, TIER_2_WARM, TIER_3_NURTURE), \"aiAnalysis\" (1-sentence digital presence or marketing gap hypothesis based on rating, review count, website CMS, and pixel/ad-tag gaps), and \"aiDraftBody\" (a personalized 4-sentence cold outreach email referencing their recent customer review hook and offering a low-friction call to action).",
               "role": "system"
             },
             {
-              "content": "=Lead Record ({{ $json.recordId }}):\nTitle/Business: {{ $json.titleText }}\nEmail: {{ $json.primary_email || 'N/A' }}\nPhone: {{ $json.phone || 'N/A' }}\nWebsite: {{ $json.website || $json.itemUrl }}\nMetric/Score: {{ $json.numericValue }} (Priority: {{ $json.priorityScore }}/100)\nRaw Payload Summary: {{ JSON.stringify($json).slice(0, 1200) }}",
+              "content": "=Lead Record ({{ $json.recordId }}):\nTitle/Business: {{ $json.titleText }} ({{ $json.primary_category || 'Local Business' }})\nEmail: {{ $json.primary_email || 'N/A' }} | Phone: {{ $json.phone || 'N/A' }}\nWebsite: {{ $json.website || $json.itemUrl }} (CMS: {{ $json.website_cms || 'N/A' }})\nOpportunity Flags: {{ JSON.stringify($json.agency_opportunity_flags || []) }}\nRating / Reviews: {{ $json.rating || 'N/A' }} ({{ $json.reviews_count || 0 }} reviews)\nCustomer Review Hook: {{ $json.review_hook_text || 'N/A' }}\nLead Score: {{ $json.numericValue }} (Priority: {{ $json.priorityScore }}/100)\nRaw Payload Summary: {{ JSON.stringify($json).slice(0, 1200) }}",
               "role": "user"
             }
           ]
@@ -526,12 +557,12 @@
         }
       },
       "id": "4005b48e-341e-5de8-9ee0-7947dd14a5b3",
-      "name": "7. AI B2B SDR Cold Email Personalizer",
+      "name": "AI B2B SDR Cold Email Personalizer",
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        1660,
-        360
+        1712,
+        368
       ]
     },
     {
@@ -541,43 +572,43 @@
             {
               "id": "d7db68c5-25bb-5c7a-8fd5-8fba0cf8afe8",
               "name": "recordId",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.recordId }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.recordId }}",
               "type": "string"
             },
             {
               "id": "5f163ca5-1f55-5a19-913b-403c46a543af",
               "name": "titleText",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.titleText }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.titleText }}",
               "type": "string"
             },
             {
               "id": "06c2f4c5-ee1b-5df8-aa46-702a9f8c570d",
               "name": "itemUrl",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.itemUrl }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.itemUrl }}",
               "type": "string"
             },
             {
               "id": "d8c1c6b8-7e21-5f4b-8370-2587575e924c",
               "name": "numericValue",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.numericValue }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.numericValue }}",
               "type": "number"
             },
             {
               "id": "a656a788-04ec-5abd-bd21-ad4a14e07c26",
               "name": "priorityScore",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.priorityScore }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.priorityScore }}",
               "type": "number"
             },
             {
               "id": "ee40383b-1908-51be-a7be-06f11d43c351",
               "name": "recipientEmail",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.primary_email || '' }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.primary_email || '' }}",
               "type": "string"
             },
             {
               "id": "215144ec-bffe-5393-ba48-48ac0035c434",
               "name": "aiHeadline",
-              "value": "={{ (typeof ($json.message && $json.message.content) === 'string' ? JSON.parse($json.message.content) : (($json.message && $json.message.content) || $json)).aiHeadline || $('6c. Filter High-Priority Items').item.json.titleText }}",
+              "value": "={{ (typeof ($json.message && $json.message.content) === 'string' ? JSON.parse($json.message.content) : (($json.message && $json.message.content) || $json)).aiHeadline || $('Filter High-Priority Leads').item.json.titleText }}",
               "type": "string"
             },
             {
@@ -601,7 +632,7 @@
             {
               "id": "21087c38-b542-5cfb-a6ad-8c97bebb4e31",
               "name": "scrapedAt",
-              "value": "={{ $('6c. Filter High-Priority Items').item.json.scrapedAt }}",
+              "value": "={{ $('Filter High-Priority Leads').item.json.scrapedAt }}",
               "type": "string"
             }
           ]
@@ -609,12 +640,12 @@
         "options": {}
       },
       "id": "649596a0-edc3-53a6-ac23-be12c296df80",
-      "name": "8. Merge AI SDR Outreach Fields",
+      "name": "Merge Final Outreach Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1890,
-        360
+        1936,
+        368
       ]
     },
     {
@@ -641,12 +672,12 @@
         }
       },
       "id": "82019262-a33d-5098-88fd-6d8a49279f39",
-      "name": "9a. Alert Sales Channel in Slack",
+      "name": "Post Alert to Sales Channel",
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.3,
       "position": [
-        2120,
-        260
+        2160,
+        256
       ]
     },
     {
@@ -664,124 +695,124 @@
         }
       },
       "id": "c0d772ff-694e-5109-8770-441d1421ad6c",
-      "name": "9b. Create Personalized Gmail Draft",
+      "name": "Draft Outreach Email in Gmail",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        2120,
+        2160,
         480
       ]
     }
   ],
   "connections": {
-    "Every 6 Hours": {
+    "When Every 6 Hours": {
       "main": [
         [
           {
-            "node": "1. Configure Search & Rules",
+            "node": "Set Search Parameters",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "1. Configure Search & Rules": {
+    "Set Search Parameters": {
       "main": [
         [
           {
-            "node": "2. Run UnitBytes (craigslist-jobs-gigs-services-scraper)",
+            "node": "Post to Craigslist Jobs, Gigs & Services Scraper: Pay & Remote API",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "2. Run UnitBytes (craigslist-jobs-gigs-services-scraper)": {
+    "Post to Craigslist Jobs, Gigs & Services Scraper: Pay & Remote API": {
       "main": [
         [
           {
-            "node": "3. Skip Seen Records",
+            "node": "Deduplicate All Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "3. Skip Seen Records": {
+    "Deduplicate All Fields": {
       "main": [
         [
           {
-            "node": "4. Clean & Score Items",
+            "node": "Normalize and Score Items",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "4. Clean & Score Items": {
+    "Normalize and Score Items": {
       "main": [
         [
           {
-            "node": "5. Map Export Fields",
+            "node": "Prepare Export Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "5. Map Export Fields": {
+    "Prepare Export Fields": {
       "main": [
         [
           {
-            "node": "6a. Log to Google Sheets",
+            "node": "Append Data to Sheets",
             "type": "main",
             "index": 0
           },
           {
-            "node": "6b. Export Backup CSV",
+            "node": "Export to CSV File",
             "type": "main",
             "index": 0
           },
           {
-            "node": "6c. Filter High-Priority Items",
+            "node": "Filter High-Priority Leads",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "6c. Filter High-Priority Items": {
+    "Filter High-Priority Leads": {
       "main": [
         [
           {
-            "node": "7. AI B2B SDR Cold Email Personalizer",
+            "node": "AI B2B SDR Cold Email Personalizer",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "7. AI B2B SDR Cold Email Personalizer": {
+    "AI B2B SDR Cold Email Personalizer": {
       "main": [
         [
           {
-            "node": "8. Merge AI SDR Outreach Fields",
+            "node": "Merge Final Outreach Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "8. Merge AI SDR Outreach Fields": {
+    "Merge Final Outreach Fields": {
       "main": [
         [
           {
-            "node": "9a. Alert Sales Channel in Slack",
+            "node": "Post Alert to Sales Channel",
             "type": "main",
             "index": 0
           },
           {
-            "node": "9b. Create Personalized Gmail Draft",
+            "node": "Draft Outreach Email in Gmail",
             "type": "main",
             "index": 0
           }
