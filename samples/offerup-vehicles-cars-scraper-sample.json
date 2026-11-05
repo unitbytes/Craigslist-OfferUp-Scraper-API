@@ -1,0 +1,51 @@
+[
+  {
+    "listingId": "31e89a78-c823-3e02-89b3-8b15e2380f28",
+    "url": "https://offerup.com/item/detail/31e89a78-c823-3e02-89b3-8b15e2380f28",
+    "title": "2022 Honda Civic Si",
+    "price": 18995.0,
+    "status": "LISTED",
+    "categoryName": "Vehicles",
+    "subcategoryName": "Cars & Trucks",
+    "locationName": "Houston, TX",
+    "latitude": 29.7301,
+    "longitude": -95.6432,
+    "isVehicle": true,
+    "vehicleYear": 2022,
+    "vehicleMake": "Honda",
+    "vehicleModel": "Civic Si",
+    "vehicleTrim": "Si",
+    "vehicleMiles": 70408,
+    "vehicleVin": "1HGCM82633A004352",
+    "vehicleColor": "red",
+    "vehicleBody": "Sedan",
+    "vehicleDoors": 4,
+    "vehicleTransmission": "Manual",
+    "vehicleDriveTrain": "FWD",
+    "vehicleFuelType": "Premium gasoline",
+    "vehicleEngineCylinders": "4",
+    "vehicleEngineDescription": "1.5L I-4 direct injection, DOHC, VTEC variable valve control, intercooled turbo, 200HP",
+    "vehicleCityMpg": 27,
+    "vehicleHighwayMpg": 37,
+    "vehicleStockNumber": "CN1015",
+    "vehicleSellerType": "dealer",
+    "vehicleOptions": [
+      "Backup Camera",
+      "LED Headlights",
+      "Lane Keeping Assist"
+    ],
+    "sellerId": "100098765",
+    "sellerProfileUrl": "https://offerup.com/p/100098765",
+    "sellerName": "Metro Auto Group",
+    "sellerPhone": "5550192834",
+    "sellerWebsite": "https://example-motors.com",
+    "sellerAddress": "100 Market St, Houston, TX 77002, USA",
+    "isDealer": true,
+    "isAutosDealer": true,
+    "sellerBadges": [
+      "Confirmed phone",
+      "Confirmed email"
+    ],
+    "sellerGoogleReviewRating": 4.0
+  }
+]
